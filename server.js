@@ -25,6 +25,10 @@ io.on("connection", (socket) => {
     socket.to(room).emit("signal", payload);
   });
 
+  socket.on("auth", ({ room, payload }) => {
+  socket.to(room).emit("auth", payload);
+});
+
   socket.on("disconnect", () => {
     console.log("Client disconnected:", socket.id);
   });
