@@ -17,16 +17,9 @@ io.on("connection", (socket) => {
   console.log("Client connected:", socket.id);
 
   socket.on("join", (room) => {
-  const clients = io.sockets.adapter.rooms.get(room) || new Set();
-  if (clients.size >= 2) {
-    console.log(`❌ Room ${room} already has 2 clients. Rejecting ${socket.id}`);
-    socket.emit("room-full", room);
-    return;
-  }
-  socket.join(room);
-  console.log(`✅ Client ${socket.id} joined room ${room} (${clients.size + 1}/2)`);
-});
-
+    socket.join(room);
+    console.log(`Client ${socket.id} joined ${room}`);
+  });
 
   socket.on("signal", ({ room, payload }) => {
     socket.to(room).emit("signal", payload);
