@@ -33,28 +33,6 @@ io.on("connection", (socket) => {
     console.log("Client disconnected:", socket.id);
   });
 });
-  socket.on("conn-request", ({ from, to }) => {
-  let target = [...io.sockets.sockets.values()].find(s => s.handshake.query.fp === to);
-  if (target) {
-    target.emit("conn-request", { from });
-  } else {
-    socket.emit("offline", { to });
-  }
-});
-
-socket.on("conn-accept", ({ from, to }) => {
-  let target = [...io.sockets.sockets.values()].find(s => s.handshake.query.fp === to);
-  if (target) {
-    target.emit("conn-accept", { from });
-  }
-});
-
-socket.on("conn-reject", ({ from, to }) => {
-  let target = [...io.sockets.sockets.values()].find(s => s.handshake.query.fp === to);
-  if (target) {
-    target.emit("conn-reject", { from });
-  }
-});
 
 
 const PORT = process.env.PORT || 3000;
